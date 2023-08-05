@@ -2,10 +2,11 @@ import style from '../styles/Header.module.css'
 import truncateEthAddress from 'truncate-eth-address'
 import ConnectWalletBtn from './ConnectWalletBtn'
 import UserCard from './UserCard'
+import { useAppContext } from '../context/context'
 const Header = () => {
   // TODO: Get the connectWallet and address from context.
+  const { address, connectWallet } = useAppContext()
   // TODO: Replace the static address with the currently logged in user.
-  const address = true
   return (
     <div className={style.wrapper}>
       <div className={style.title}>Lottery DAPP 💰</div>
@@ -13,7 +14,11 @@ const Header = () => {
       {/* TODO: pass in the address to the userCard */}
       {/* TODO: pass in the connect Wallet function to the connect Wallet Button. */}
 
-      {address ? <UserCard /> : <ConnectWalletBtn />}
+      {address ? (
+        <UserCard address={address} />
+      ) : (
+        <ConnectWalletBtn connectWallet={connectWallet} />
+      )}
     </div>
   )
 }
